@@ -1,7 +1,9 @@
 import scrapy
+import csv
 
 from ..items import ComicscraperItem
 from scrapy.loader import ItemLoader
+from scrapy.exceptions import CloseSpider
 
 
 class PaniniSpider(scrapy.Spider):
@@ -14,6 +16,13 @@ class PaniniSpider(scrapy.Spider):
             l = ItemLoader(item=ComicscraperItem(), selector=sel)
             l.add_xpath('title', './text()')
             l.add_xpath('link', './@href')
+
+            with open("comics.csv", 'rt') as f:
+                reader = csv.reader(f, delimiter=',')
+                for row in reader:
+                    if sel.xpath('./@href').get() == row[2]:
+                        raise CloseSpider('Alredy added item')
+
             request = scrapy.Request(sel.xpath('./@href').get(), callback=self.parse_2page,
                                      dont_filter=True)
             request.meta['l'] = l
