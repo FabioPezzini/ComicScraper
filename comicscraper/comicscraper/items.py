@@ -22,7 +22,8 @@ def remove_spaces(value):
 def format(value):
     return re.sub('\s+', ' ', value).strip()
 
-
+def remove_last_comma(value):
+    return value.rstrip(',')
 def remove_various_author(value):
     return value.replace("AA.VV.", "")
 
@@ -37,5 +38,5 @@ class ComicscraperItem(scrapy.Item):
     publication_date = scrapy.Field()
     series = scrapy.Field(input_processor=MapCompose(remove_unicode, remove_spaces, format), output_processor=TakeFirst())
     subtitle = scrapy.Field(input_processor=MapCompose(remove_unicode, remove_spaces, format), output_processor=TakeFirst())
-    authors = scrapy.Field(input_processor=MapCompose(remove_unicode, remove_various_author, remove_spaces, format), output_processor=TakeFirst())
-    include = scrapy.Field(input_processor=MapCompose(remove_unicode, remove_spaces, format), output_processor=TakeFirst())
+    authors = scrapy.Field(input_processor=MapCompose(remove_unicode, remove_various_author, remove_spaces, format, remove_last_comma), output_processor=TakeFirst())
+    include = scrapy.Field(input_processor=MapCompose(remove_unicode, remove_spaces, format, remove_last_comma), output_processor=TakeFirst())
