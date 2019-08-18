@@ -1,11 +1,13 @@
 use italiancomics;
+DROP TABLE paninicomics;
+
 CREATE TABLE PANINICOMICS
 ( title VARCHAR(2083),
   link VARCHAR(2083),
   subtitle VARCHAR(2083),
   series VARCHAR(2083),
-  price DECIMAL(19,4),
-  pub_date DATE,
+  price VARCHAR(2000),
+  pub_date VARCHAR(600),
   include VARCHAR(2083),
   authors VARCHAR(2083));
 
