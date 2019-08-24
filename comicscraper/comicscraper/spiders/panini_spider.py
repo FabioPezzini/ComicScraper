@@ -41,4 +41,6 @@ class PaniniSpider(scrapy.Spider):
         l.add_value('subtitle', response.xpath("//small[@class='subtitle']/text()").get())
         l.add_value('authors', response.xpath("//div[@id='authors']//div/text()").get())
         l.add_value('include', response.xpath("//div[@id='includes']//div/text()").get())
+        l.add_value('image_url', response.xpath("//a[@id='aImgProd']/@href").get())
+
         return l.load_item()

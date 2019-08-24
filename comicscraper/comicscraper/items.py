@@ -40,3 +40,4 @@ class ComicscraperItem(scrapy.Item):
     subtitle = scrapy.Field(input_processor=MapCompose(remove_unicode, remove_spaces, format), output_processor=TakeFirst())
     authors = scrapy.Field(input_processor=MapCompose(remove_unicode, remove_various_author, remove_spaces, format, remove_last_comma), output_processor=TakeFirst())
     include = scrapy.Field(input_processor=MapCompose(remove_unicode, remove_spaces, format, remove_last_comma), output_processor=TakeFirst())
+    image_url = scrapy.Field()

@@ -44,7 +44,7 @@ class ComicscraperPipeline(object):
         return item
 
     def store_db(self, item):
-        self.cursor.execute("""INSERT INTO paninicomics values (%s, %s, %s, %s, %s, %s, %s, %s) """, (
+        self.cursor.execute("""INSERT INTO paninicomics values (%s, %s, %s, %s, %s, %s, %s, %s, %s) """, (
             item.get('title'),
             item.get('link'),
             item.get('subtitle'),
@@ -52,7 +52,8 @@ class ComicscraperPipeline(object):
             item.get('price'),
             item.get('publication_date'),
             item.get('include'),
-            item.get('authors')
+            item.get('authors'),
+            item.get('image_url')
         ))
         self.conn.commit()
 
