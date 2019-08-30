@@ -7,6 +7,7 @@
 
 import pymysql
 from scrapy.exceptions import NotConfigured
+from datetime import datetime
 
 
 class ComicscraperPipeline(object):
@@ -40,22 +41,30 @@ class ComicscraperPipeline(object):
         item.setdefault('subtitle', 'null')
         item.setdefault('authors', 'null')
         item.setdefault('include', 'null')
+        item.setdefault('description', 'null')
+        item.setdefault('pages','null')
         self.store_db(item)
         return item
 
     def store_db(self, item):
-        self.cursor.execute("""INSERT INTO paninicomics values (%s, %s, %s, %s, %s, %s, %s, %s, %s) """, (
-            item.get('title'),
-            item.get('link'),
-            item.get('subtitle'),
-            item.get('series'),
-            item.get('price'),
-            item.get('publication_date'),
-            item.get('include'),
-            item.get('authors'),
-            item.get('image_url')
-        ))
-        self.conn.commit()
+        query = "SELECT * FROM paninicomics where link=" + "'" + item.get('link')[0] + "'"
+        self.cursor.execute(query)
+        if self.cursor.rowcount == 0:
+            if datetime.today().strftime('%Y/%m/%d') > item.get('publication_date') :
+                self.cursor.execute("""INSERT INTO paninicomics values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) """, (
+                    item.get('title'),
+                    item.get('link'),
+                    item.get('subtitle'),
+                    item.get('series'),
+                    item.get('price'),
+                    item.get('publication_date'),
+                    item.get('include'),
+                    item.get('authors'),
+                    item.get('image_url'),
+                    item.get('description'),
+                    item.get('pages')
+                ))
+                self.conn.commit()
 
     def close_spider(self, spider):
         self.conn.close()
