@@ -19,6 +19,9 @@ def remove_unicode(value):
 def remove_spaces(value):
     return value.replace("\r\n", "")
 
+def remove_tab(value):
+    return value.replace("\t", "")
+
 
 def format_date(value):
     return datetime.datetime.strptime(value, '%d/%m/%Y').strftime('%Y/%m/%d')
@@ -36,11 +39,17 @@ def remove_various_author(value):
     return value.replace("AA.VV.", "")
 
 
-class ComicscraperItem(scrapy.Item):
-    # define the fields for your item here like:
-    title = scrapy.Field(
-        input_processor=MapCompose(remove_spaces, format), output_processor=TakeFirst()
-    )
+class ComicsBoxItem(scrapy.Item):
+    titleEdizione = scrapy.Field()
+    linkEdizione = scrapy.Field()
+    year = scrapy.Field()
+    numbers = scrapy.Field()
+    publisher = scrapy.Field()
+    dettagliEdizione = scrapy.Field()
+    issueTitle = scrapy.Field(input_processor=MapCompose(remove_tab), output_processor=TakeFirst())
+
+class PaniniItem(scrapy.Item):
+    title = scrapy.Field(input_processor=MapCompose(remove_spaces, format), output_processor=TakeFirst())
     link = scrapy.Field()
     price = scrapy.Field(input_processor=MapCompose(remove_spaces, format), output_processor=TakeFirst())
     publication_date = scrapy.Field(input_processor=MapCompose(format_date),output_processor=TakeFirst())

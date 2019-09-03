@@ -1,9 +1,7 @@
 import scrapy
-import csv
 
-from ..items import ComicscraperItem
+from ..items import PaniniItem
 from scrapy.loader import ItemLoader
-from scrapy.exceptions import CloseSpider
 
 
 class PaniniSpider(scrapy.Spider):
@@ -13,7 +11,7 @@ class PaniniSpider(scrapy.Spider):
     def parse(self, response):
         # Get all the <a> tags
         for sel in response.xpath("//div[@class='list-group']//h3/a"):
-            l = ItemLoader(item=ComicscraperItem(), selector=sel)
+            l = ItemLoader(item=PaniniItem(), selector=sel)
             l.add_xpath('title', './text()')
             l.add_xpath('link', './@href')
 

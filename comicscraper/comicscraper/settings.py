@@ -22,7 +22,7 @@ NEWSPIDER_MODULE = 'comicscraper.spiders'
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 32
+#CONCURRENT_REQUESTS = 1  #mettere 32
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -64,9 +64,9 @@ COOKIES_ENABLED = False
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'comicscraper.pipelines.ComicscraperPipeline': 300,
-}
+#ITEM_PIPELINES = {
+#    'comicscraper.pipelines.ComicscraperPipeline': 300,
+#}
 
 DB_SETTINGS = {
     'db': "italiancomics",
