@@ -37,13 +37,22 @@ class ComicscraperPipeline(object):
         self.cursor = self.conn.cursor()
 
     def process_item(self, item, spider):
-        item.setdefault('series', 'null')
-        item.setdefault('subtitle', 'null')
-        item.setdefault('authors', 'null')
-        item.setdefault('include', 'null')
-        item.setdefault('description', 'null')
-        item.setdefault('pages','null')
-        self.store_db(item)
+        titleE = item.get('titleEdizione')
+        item['titleEdizione'] = titleE.encode('ascii', 'ignore').decode("utf-8")
+        issue = item.get('issueTitle')
+        item['issueTitle'] = issue.encode('ascii', 'ignore').decode("utf-8")     #item.setdefault('series', 'null')
+
+        #item.setdefault('issueOriginalStory', 'null')
+        itemStory = item.get('issueOriginalStory')
+        if itemStory is not None:
+            words = [w.replace('# ', '#') for w in itemStory]
+            item['issueOriginalStory'] = words
+         #item.setdefault('subtitle', 'null')
+         #item.setdefault('authors', 'null')
+         #item.setdefault('include', 'null')
+         #item.setdefault('description', 'null')
+         #item.setdefault('pages','null')
+        #self.store_db(item)
         return item
 
     def store_db(self, item):

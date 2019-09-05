@@ -20,33 +20,33 @@ class ComicsBoxSpider(scrapy.Spider):
             link_2page = 'https://www.comicsbox.it/' + sel.xpath('./td[1]//a/@href').get()
             yield scrapy.Request(link_2page, callback=self.parse_2page, meta={'item': item})
 
-            # next_page = response.xpath("//a[@class='next i-next']/@href").extract_first()
-            # if next_page is "http://comics.panini.it/store/pub_ita_it/magazines.html?p=15":  #Scrape only fist 15 pages, set is Not None for scrape all list
-            # next_page_link = response.urljoin(next_page)
-            # yield scrapy.Request(url=next_page_link)
-
     def parse_2page(self, response):
         item = ComicsBoxItem(response.request.meta["item"])
-        # print(response.xpath("//div[@class='dettagli_testo']/text()").get())
-        # l.add_xpath('dettagliEdizione', "./div[@class='dettagli_testo']/text()")
 
         row2page = response.xpath("//*[@id='lista-table']//tr")
         for sel2page in row2page[1:]:
             item = ComicsBoxItem(response.request.meta["item"])
             n3page = sel2page.xpath('.//td[1]//a/@href').get()
-            # print(n3page)
+
             link_3page = 'https://www.comicsbox.it/' + n3page
             yield scrapy.Request(link_3page, callback=self.parse_3page, meta={'item': item})
 
-        # CONTROLLARE CHE NON CI SIANO ALTRE PAGINE DELLA TABELLA
+        pagination = response.xpath("//*[@class='pagination']//ul//li//a[text()='Last']/@href").get()
+        if pagination is not None:
+            first = pagination.split("=", 1)[0]
+            second = pagination.split("=", 1)[1]
+            for i in range(50, int(second)+50, 50):
+                next2url = "https://www.comicsbox.it" + first + "=" + str(i)
+                yield scrapy.Request(next2url, callback=self.parse_2page, meta={'item': item})
 
     def parse_3page(self, response):
         item = ComicsBoxItem(response.request.meta["item"])
-        # print(response.xpath("//div[@id='intestazione']//h1/text()").get())
-        # l.add_xpath('issueTitle', "//div[@id='intestazione']//h1/text()")
+
         trans_table = {ord(c): None for c in u'\r\n\t'}
-        item['issueTitle'] = ''.join(
-            s.translate(trans_table) for s in response.xpath("//div[@id='intestazione']//h1/text()").get()).replace(
-            "# ", "#")
+        item['issueTitle'] = ''.join(s.translate(trans_table) for s in response.xpath("//div[@id='intestazione']//h1/text()").get()).replace("# ", "#")
+
+        selIss = response.xpath("//div[@id='maintext_cb']//div[@class='alboita_right']")
+        if len(selIss) >= 1:
+            item['issueOriginalStory'] = selIss.xpath("./strong//a/text()").extract()
 
         return item

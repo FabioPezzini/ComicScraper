@@ -47,6 +47,8 @@ class ComicsBoxItem(scrapy.Item):
     publisher = scrapy.Field()
     dettagliEdizione = scrapy.Field()
     issueTitle = scrapy.Field(input_processor=MapCompose(remove_tab), output_processor=TakeFirst())
+    issueOriginalStory = scrapy.Field()
+
 
 class PaniniItem(scrapy.Item):
     title = scrapy.Field(input_processor=MapCompose(remove_spaces, format), output_processor=TakeFirst())
