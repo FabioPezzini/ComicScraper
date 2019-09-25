@@ -64,13 +64,13 @@ COOKIES_ENABLED = False
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'comicscraper.pipelines.ComicscraperPipeline': 300,
-}
+#ITEM_PIPELINES = {
+#    'comicscraper.pipelines.ComicscraperPipeline': 300,
+#}
 
 DB_SETTINGS = {
-    'db': "italiancomics",
-    'user': 'root',
+    'db': "thecomics",
+    'user': 'XXX',
     'passwd': 'XXX',
     'host': 'localhost',
 }

@@ -39,15 +39,19 @@ def remove_various_author(value):
     return value.replace("AA.VV.", "")
 
 
-class ComicsBoxItem(scrapy.Item):
-    titleEdizione = scrapy.Field()
-    linkEdizione = scrapy.Field()
-    year = scrapy.Field()
-    numbers = scrapy.Field()
+class ComicsITAItem(scrapy.Item):
+    serie_title = scrapy.Field()
+    link_albo = scrapy.Field()
+    serie_year = scrapy.Field()
+    serie_numbers = scrapy.Field()
     publisher = scrapy.Field()
     dettagliEdizione = scrapy.Field()
-    issueTitle = scrapy.Field(input_processor=MapCompose(remove_tab), output_processor=TakeFirst())
-    issueOriginalStory = scrapy.Field()
+    issue_title = scrapy.Field(input_processor=MapCompose(remove_tab), output_processor=TakeFirst())
+    issue_originalstories = scrapy.Field()
+    issue_subtitle = scrapy.Field()
+    issue_date = scrapy.Field()
+    issue_link_image = scrapy.Field()
+    issue_description = scrapy.Field()
 
 
 class PaniniItem(scrapy.Item):
@@ -62,3 +66,19 @@ class PaniniItem(scrapy.Item):
     image_url = scrapy.Field()
     description = scrapy.Field(input_processor=MapCompose(remove_spaces, format), output_processor=TakeFirst())
     pages = scrapy.Field(input_processor=MapCompose(remove_spaces, format), output_processor=TakeFirst())
+
+class ComicsBoxWeeklyItem(scrapy.Item):
+    date = scrapy.Field()
+    serie_title = scrapy.Field()
+    action = scrapy.Field()
+    link_albo = scrapy.Field()
+    serie_year = scrapy.Field()
+    serie_numbers = scrapy.Field()
+    publisher = scrapy.Field()
+    dettagliEdizione = scrapy.Field()
+    issue_title = scrapy.Field(input_processor=MapCompose(remove_tab), output_processor=TakeFirst())
+    issue_originalstories = scrapy.Field()
+    issue_subtitle = scrapy.Field()
+    issue_date = scrapy.Field()
+    issue_link_image = scrapy.Field()
+    issue_description = scrapy.Field()
