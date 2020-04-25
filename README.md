@@ -1,5 +1,5 @@
 ![logo ComicScraper](comicscraper/ComicScraper.png)
-ComicScraper is a scraper that allow you to create your personal DB containing all the informations
+ComicScraper allow you to create your personal DB containing all the informations
 about the comics (from 1946 to now) and some manga.
 It includes also the covers of each comic.
 
