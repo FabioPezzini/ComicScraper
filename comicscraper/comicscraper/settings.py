@@ -1,14 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Scrapy settings for comicscraper project
-#
-# For simplicity, this file contains only settings considered important or
-# commonly used. You can find more settings consulting the documentation:
-#
-#     https://docs.scrapy.org/en/latest/topics/settings.html
-#     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-
 BOT_NAME = 'comicscraper'
 
 SPIDER_MODULES = ['comicscraper.spiders']
@@ -19,7 +8,7 @@ NEWSPIDER_MODULE = 'comicscraper.spiders'
 #USER_AGENT = 'comicscraper (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = False
+ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 1  #mettere 32
@@ -67,13 +56,7 @@ COOKIES_ENABLED = False
 #ITEM_PIPELINES = {
 #    'comicscraper.pipelines.ComicscraperPipeline': 300,
 #}
-
-DB_SETTINGS = {
-    'db': "thecomics",
-    'user': 'XXX',
-    'passwd': 'XXX',
-    'host': 'localhost',
-}
+IMAGES_STORE = 'Images'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -95,3 +78,10 @@ DB_SETTINGS = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# Add in comicsITA_spider.py in start_urls
+# https://www.comicsbox.it/serieitaliane
+
+# Add in comicsWeekly.py start_urls
+# https://www.comicsbox.it/editlog.php?&limite=0
+
