@@ -68,8 +68,23 @@ class ComicsITASpider(scrapy.Spider):
         if len(selIss) >= 1:
             item['issue_originalstories'] = selIss.xpath("./strong//a/text()").extract()
 
-        selDescNoDefault = response.xpath("//div[@class='sinossi']/text()")
-        if len(selDel) == 0 and len(selIss) == 1 and len(selDescNoDefault) == 1:
-            item['issue_description'] = response.xpath("//div[@class='sinossi']/text()").extract()
+            # Check if exits authors
+            selAuthors = response.xpath("//div[@class='alboita_dettagli']/a/text()")
+            if selAuthors is not None:
+                item['authors'] = selAuthors.extract()
+
+            # Check if exits protagonists
+            selProtagonists = response.xpath("//div[@class='alboita_right']/a/text()")
+            selTypeOf = response.xpath("//div[@class='alboita_right']/em/text()")
+            if selProtagonists is not None and selTypeOf.get() == 'protagonisti:':
+                item['protagonists'] = selProtagonists.extract()
+
+            # Check if exits a description of the issue
+            selDesc = response.xpath("//div[@id='descrizione_ita']/p/text()")
+            selDescNoDefault = response.xpath("//div[@class='sinossi']/text()")
+            if len(selDesc) > 0:
+                item['issue_description'] = selDesc.extract()
+            elif len(selDescNoDefault) > 0:
+                item['issue_description'] = selDescNoDefault.extract()
 
         return item, itemI

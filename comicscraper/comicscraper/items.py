@@ -27,6 +27,8 @@ class ComicsITAItem(scrapy.Item):
     issue_date = scrapy.Field()
     issue_link_image = scrapy.Field()
     issue_description = scrapy.Field()
+    protagonists = scrapy.Field()
+    authors = scrapy.Field()
 
 
 class ComicsBoxWeeklyItem(scrapy.Item):
@@ -44,3 +46,5 @@ class ComicsBoxWeeklyItem(scrapy.Item):
     issue_date = scrapy.Field()
     issue_link_image = scrapy.Field()
     issue_description = scrapy.Field()
+    protagonists = scrapy.Field()
+    authors = scrapy.Field()
