@@ -8,7 +8,7 @@ class ComicsITASpider(scrapy.Spider):
     name = "comicsITA"
     custom_settings = {'ITEM_PIPELINES': {'comicscraper.pipelines.ComicscraperPipeline': 300,
                                           'comicscraper.pipelines.CustomImageNamePipeline': 1}}
-    start_urls = [""]  # TO ADD THE URL, SEE IN settings.py
+    start_urls = ["https://www.comicsbox.it/serieitaliane"]
 
     def parse(self, response):
         row = response.xpath("//*[@id='lista-table']//tr")

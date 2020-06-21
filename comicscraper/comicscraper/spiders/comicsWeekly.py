@@ -8,7 +8,7 @@ class ComicsWeeklySpider(scrapy.Spider):
     name = "comicsWeekly"
     custom_settings = {'ITEM_PIPELINES': {'comicscraper.pipelines.ComicscraperWeeklyPipeline': 300,
                                           'comicscraper.pipelines.CustomImageNamePipeline': 1}}
-    start_urls = [""]  # TO ADD THE URL, SEE IN settings.py
+    start_urls = ["https://www.comicsbox.it/editlog.php?&limite=0"]
 
     def parse(self, response):
         row = response.xpath("//*[@id='lista-table']//tr")

@@ -78,10 +78,3 @@ IMAGES_STORE = 'Images'
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-
-# Add in comicsITA_spider.py in start_urls
-# https://www.comicsbox.it/serieitaliane
-
-# Add in comicsWeekly.py start_urls
-# https://www.comicsbox.it/editlog.php?&limite=0
-
